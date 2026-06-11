@@ -584,6 +584,7 @@ document.addEventListener("DOMContentLoaded", () => {
     guardarCarrito();
     actualizarNavbar();
 
+    // REGISTRO DEL SERVICE WORKER (Fase 6 - Paso 14)
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')
             .then(reg => console.log('¡Service Worker registrado con éxito!', reg))
