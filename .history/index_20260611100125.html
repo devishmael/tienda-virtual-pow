@@ -4,54 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commerce UCAB | Actividad Extra</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class'
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type=tailwindcss>
+        @variant dark (&:where(.dark, .dark *));
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-200">
 
-    <nav class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-xs border-b border-gray-100 dark:border-gray-700 sticky top-0 z-40 transition-colors duration-200">
-        <div class="max-w-7xl mx-auto px-4 py-2.5 flex justify-between items-center">
+    <nav class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 onclick="mostrarSeccion('landing')" class="text-xl font-extrabold text-blue-600 dark:text-blue-400 cursor-pointer tracking-wider">UCAB SHOP</h1>
             
-            <h1 onclick="mostrarSeccion('landing')" class="text-xl font-black text-blue-600 dark:text-blue-400 cursor-pointer tracking-wider flex items-center gap-2 hover:opacity-90 transition-opacity">
-                <span>🛍️</span> UCAB SHOP
-            </h1>
-            
-            <div class="flex items-center space-x-2 sm:space-x-3">
-                <button onclick="mostrarSeccion('catalogo')" class="text-sm font-bold px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60 rounded-xl transition-all cursor-pointer">
-                    Tienda
-                </button>
+            <div class="flex items-center space-x-4">
+                <button onclick="mostrarSeccion('catalogo')" class="text-sm font-semibold hover:text-blue-500 cursor-pointer">Tienda</button>
+                <button id="nav-admin-link" onclick="mostrarSeccion('admin-box')" class="text-sm font-semibold text-red-500 hover:underline hidden cursor-pointer">Admin</button>
                 
-                <button id="nav-admin-link" onclick="mostrarSeccion('admin-box')" class="text-sm font-bold px-3 py-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all hidden cursor-pointer">
-                    Admin
-                </button>
-                
-                <span class="h-5 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></span>
-
-                <button onclick="mostrarSeccion('carrito-box')" class="relative p-2 text-xl hover:bg-gray-100 dark:hover:bg-gray-700/60 rounded-xl transition-all cursor-pointer" title="Ver Carrito">
-                    🛒 <span id="cart-count" class="absolute -top-0.5 -right-0.5 bg-blue-600 text-white text-[10px] h-4 w-4 flex items-center justify-center rounded-full font-black shadow-xs">0</span>
+                <button onclick="mostrarSeccion('carrito-box')" class="relative p-2 cursor-pointer">
+                    🛒 <span id="cart-count" class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs px-1.5 rounded-full font-bold">0</span>
                 </button>
 
-                <button onclick="alternarTema()" class="p-2 bg-gray-100 dark:bg-gray-700/80 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl text-sm transition-all cursor-pointer" title="Alternar Tema Ilustrado">
-                    🌓
-                </button>
+                <button onclick="alternarTema()" class="p-1 bg-gray-200 dark:bg-gray-700 rounded-lg text-xs cursor-pointer">🌓 Mode</button>
 
-                <button id="nav-auth-btn" onclick="mostrarSeccion('auth-box')" class="bg-blue-600 text-white text-xs px-4 py-2 rounded-xl font-bold shadow-md shadow-blue-500/10 hover:bg-blue-700 hover:shadow-blue-500/20 transition-all cursor-pointer">
-                    Entrar
-                </button>
-                
-                <div id="nav-user-menu" class="hidden flex items-center space-x-3 pl-1">
-                    <div id="nav-username" onclick="mostrarSeccion('perfil-box')" class="cursor-pointer"></div>
-                    
-                    <button onclick="Auth.logout()" class="text-xs font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 px-3 py-2 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/40 transition-all shadow-xs cursor-pointer">
-                        Salir
-                    </button>
+                <button id="nav-auth-btn" onclick="mostrarSeccion('auth-box')" class="bg-blue-600 text-white text-xs px-3 py-1.5 rounded-md font-medium hover:bg-blue-700 cursor-pointer">Entrar</button>
+                <div id="nav-user-menu" class="hidden flex items-center space-x-2">
+                    <span id="nav-username" onclick="mostrarSeccion('perfil-box')" class="text-xs font-bold cursor-pointer hover:underline text-blue-500"></span>
+                    <button onclick="Auth.logout()" class="text-xs text-gray-400 hover:text-red-500 cursor-pointer">Salir</button>
                 </div>
             </div>
-
         </div>
     </nav>
 
@@ -90,11 +69,11 @@
             <div class="bg-gray-100 dark:bg-gray-800 p-8 rounded-xl space-y-4">
                 <h3 class="text-xl font-bold text-center">Lo que dicen nuestros clientes</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm italic text-sm">
+                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xs italic text-sm">
                         "Brillante el sistema sin conexión. Pude apartar mi mercancía sin datos móviles y al llegar a casa se cobró de inmediato. 10/10."
                         <span class="block font-bold text-right text-xs mt-2 not-italic text-blue-500">— Carlos M.</span>
                     </div>
-                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm italic text-sm">
+                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-xs italic text-sm">
                         "La interfaz responsive fluye idéntica en mi laptop que en mi teléfono. Muy recomendada la tienda virtual de la UCAB."
                         <span class="block font-bold text-right text-xs mt-2 not-italic text-blue-500">— Tatiana R.</span>
                     </div>
@@ -111,61 +90,32 @@
             </div>
         </section>
 
-        <section id="catalogo" class="hidden space-y-8">
-            
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b dark:border-gray-700/60 pb-3">
+        <section id="catalogo" class="hidden space-y-6">
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                    <h2 class="text-2xl font-black tracking-tight text-gray-900 dark:text-white flex items-center gap-2">
-                        Explora la Tienda 🚀
-                    </h2>
-                    <p class="text-xs text-gray-400 dark:text-gray-500 font-medium">Busca, filtra y encuentra tus productos favoritos al instante.</p>
+                    <label class="block text-xs font-bold mb-1 uppercase tracking-wider text-gray-400">Buscador</label>
+                    <input type="text" id="search-input" oninput="renderizarCatalogo()" placeholder="Buscar producto..." class="w-full bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1 uppercase tracking-wider text-gray-400">Categoría</label>
+                    <select id="category-filter" onchange="renderizarCatalogo()" class="w-full bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
+                        <option value="todos">Todas las categorías</option>
+                        <option value="electronics">Electrónica</option>
+                        <option value="jewelery">Joyería</option>
+                        <option value="men's clothing">Ropa de Caballero</option>
+                        <option value="women's clothing">Ropa de Dama</option>
+                    </select>
+                </div>
+                <div>
+                    <div class="flex justify-between">
+                        <label class="block text-xs font-bold mb-1 uppercase tracking-wider text-gray-400">Precio Máximo</label>
+                        <span id="price-label" class="text-xs font-bold text-blue-500">Cualquiera</span>
+                    </div>
+                    <input type="range" id="price-filter" min="0" max="1000" step="10" value="1000" oninput="renderizarCatalogo()" class="w-full accent-blue-600">
                 </div>
             </div>
 
-            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md p-5 rounded-2xl shadow-xs border border-gray-100 dark:border-gray-700/80 grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-200">
-                
-                <div class="flex flex-col">
-                    <label class="block text-[10px] font-black mb-1.5 uppercase tracking-wider text-gray-400 dark:text-gray-500">¿Qué estás buscando?</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-3 flex items-center text-gray-400 dark:text-gray-500 pointer-events-none text-sm">🔍</span>
-                        <input type="text" id="search-input" oninput="renderizarCatalogo()" placeholder="Buscar por nombre o descripción..." 
-                               class="w-full bg-gray-50/50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-4 focus:ring-blue-500/10 dark:focus:ring-blue-400/10 rounded-xl pl-9 pr-3 py-2.5 text-sm outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600">
-                    </div>
-                </div>
-
-                <div class="flex flex-col">
-                    <label class="block text-[10px] font-black mb-1.5 uppercase tracking-wider text-gray-400 dark:text-gray-500">Filtrar por Categoría</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-3 flex items-center text-gray-400 dark:text-gray-500 pointer-events-none text-sm">🏷️</span>
-                        <select id="category-filter" onchange="renderizarCatalogo()" 
-                                class="w-full bg-gray-50/50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-700 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-4 focus:ring-blue-500/10 dark:focus:ring-blue-400/10 rounded-xl pl-9 pr-3 py-2.5 text-sm outline-none transition-all cursor-pointer text-gray-700 dark:text-gray-300">
-                            <option value="todos" class="bg-white dark:bg-gray-800">Todas las categorías</option>
-                            <option value="electronics" class="bg-white dark:bg-gray-800">⚡ Electrónica</option>
-                            <option value="jewelery" class="bg-white dark:bg-gray-800">💎 Joyería</option>
-                            <option value="men's clothing" class="bg-white dark:bg-gray-800">👕 Ropa de Caballero</option>
-                            <option value="women's clothing" class="bg-white dark:bg-gray-800">👗 Ropa de Dama</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="flex flex-col justify-between">
-                    <div class="flex justify-between items-center mb-1.5">
-                        <label class="block text-[10px] font-black uppercase tracking-wider text-gray-400 dark:text-gray-500">Presupuesto Máximo</label>
-                        <span id="price-label" class="text-xs font-black bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-md border border-blue-100 dark:border-blue-900/50 transition-all">Cualquiera</span>
-                    </div>
-                    <div class="pt-2">
-                        <input type="range" id="price-filter" min="0" max="1000" step="10" value="1000" oninput="renderizarCatalogo()" 
-                               class="w-full accent-blue-600 dark:accent-blue-400 bg-gray-200 dark:bg-gray-700 h-2 rounded-xl cursor-pointer transition-all">
-                        <div class="flex justify-between text-[10px] text-gray-400 font-bold mt-1.5 px-0.5 tracking-wide">
-                            <span>$0</span>
-                            <span>$1000</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2"></div>
+            <div id="grid-productos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </section>
 
         <section id="auth-box" class="hidden max-w-md mx-auto bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md space-y-6 mt-10">
@@ -185,7 +135,7 @@
                 <input type="text" id="reg-nombre" required placeholder="Nombre Completo" class="w-full bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
                 <input type="text" id="reg-user" required placeholder="Escribe un nombre de Usuario" class="w-full bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
                 <input type="password" id="reg-pass" required placeholder="Establecer Contraseña" class="w-full bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
-                <button type="submit" class="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white text-sm py-2 rounded-lg font-medium hover:bg-gray-300 cursor-pointer">Crear Cuenta Cuenta Cliente</button>
+                <button type="submit" class="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white text-sm py-2 rounded-lg font-medium hover:bg-gray-300 cursor-pointer">Crear Cuenta Cliente</button>
             </form>
         </section>
 
@@ -214,7 +164,7 @@
                     <input type="text" required placeholder="Número de Tarjeta (16 dígitos)" pattern="[0-9]{16}" class="w-full bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
                     <div class="grid grid-cols-2 gap-2">
                         <input type="text" required placeholder="MM/AA" class="bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
-                        <input type="password" required placeholder="CVV" pattern="[0-9]{3}" class="w-full bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
+                        <input type="password" required placeholder="CVV" pattern="[0-9]{3}" class="bg-gray-50 dark:bg-gray-700 border dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
                     </div>
                     <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-bold text-sm shadow cursor-pointer">Confirmar Orden de Compra</button>
                 </form>
@@ -222,7 +172,7 @@
         </section>
 
         <section id="admin-box" class="hidden space-y-8">
-            <h2 class="text-2xl font-black text-red-500">Panel de Control de Administrativo</h2>
+            <h2 class="text-2xl font-black text-red-500">Panel de Control de Administrador</h2>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border-l-4 border-green-500">
